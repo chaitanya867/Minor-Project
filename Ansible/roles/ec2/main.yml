@@ -1,0 +1,35 @@
+# tasks file for ec2
+
+- name: Launching Master Node
+  ec2:
+    aws_access_key: "{{ ak }}"
+    aws_secret_key: "{{ sk }}"
+    key_name: "update"
+    instance_type: "t2.micro"
+    image: "ami-068d43a544160b7ef"
+    wait: "yes"
+    count: 1
+    vpc_subnet_id: "subnet-11b3b479"
+    assign_public_ip: yes
+    region: "ap-south-1"
+    instance_tags:
+      Name: "Master Node"
+    state: present
+    group_id: "sg-0e1c7a4815316484f"
+
+- name: Launching Slave Nodes
+  ec2:
+    aws_access_key: "{{ ak }}"
+    aws_secret_key: "{{ sk }}"
+    key_name: "update"
+    instance_type: "t2.micro"
+    image: "ami-068d43a544160b7ef"
+    wait: "yes"
+    count: 2
+    vpc_subnet_id: "subnet-11b3b479"
+    assign_public_ip: yes
+    region: "ap-south-1"
+    instance_tags:
+      Name: "Slave Node"
+    state: present
+    group_id: "sg-0e1c7a4815316484f"
